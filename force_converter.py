@@ -93,6 +93,9 @@ class ForceConverterGUI(tk.Tk):
         self.from_unit.pack(side="left", padx=(8, 15))
         self.from_unit.set("kN")
 
+        self.swap_button = ttk.Button(unit_frame, text="바꾸기", command=self.swap_units)
+        self.swap_button.pack(side="left", padx=(0, 15))
+
         ttk.Label(unit_frame, text="출력 단위:", font=("맑은 고딕", 11)).pack(side="left")
         self.to_unit = ttk.Combobox(unit_frame, values=list(UNIT_FACTORS.keys()), state="readonly", width=8)
         self.to_unit.pack(side="left", padx=(8, 0))
@@ -111,6 +114,12 @@ class ForceConverterGUI(tk.Tk):
         self.history_text.pack(fill="both", expand=True)
 
         self.clear()
+
+    def swap_units(self):
+        from_unit = self.from_unit.get()
+        to_unit = self.to_unit.get()
+        self.from_unit.set(to_unit)
+        self.to_unit.set(from_unit)
 
     def calculate(self, event=None):
         user_input = self.entry.get().strip()
